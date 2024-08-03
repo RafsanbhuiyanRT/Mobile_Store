@@ -33,13 +33,25 @@
                                 <li><a class="dropdown-item nav-link" href="#">Watch</a></li>
                             </ul>
                         </li>
-                       
-                    </ul> 
+                        <ul>
+                            <form class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                        </ul>
+                    </ul>
+                                  
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="loginLogoutDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Account
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginLogoutDropdown">
+                            <li><a class="dropdown-item" asp-controller="Account" asp-action="LogInIndex">Login</a></li>
+                            <li><a class="dropdown-item" asp-controller="Account" asp-action="SignUpIndex">Sign Up</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+               
             </div>
         </nav>
     </header>
