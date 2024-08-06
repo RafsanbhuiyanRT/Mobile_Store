@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceApp.Controllers
 {
-    public class AccountController(AppDbContext db,) : Controller
+    public class AccountController(AppDbContext db) : Controller
     {
         public IActionResult LoginIndex()
         {
