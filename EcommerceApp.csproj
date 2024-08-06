@@ -24,7 +24,6 @@
   <ItemGroup>
     <Folder Include="Area\Admin\" />
     <Folder Include="Area\Customar\" />
-    <Folder Include="Models\Entity\" />
     <Folder Include="Models\ViewModel\" />
   </ItemGroup>
 
