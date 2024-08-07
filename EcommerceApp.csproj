@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\ViewModel\**" />
+    <Content Remove="Models\ViewModel\**" />
+    <EmbeddedResource Remove="Models\ViewModel\**" />
+    <None Remove="Models\ViewModel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
@@ -24,7 +32,6 @@
   <ItemGroup>
     <Folder Include="Area\Admin\" />
     <Folder Include="Area\Customar\" />
-    <Folder Include="Models\ViewModel\" />
   </ItemGroup>
 
 
