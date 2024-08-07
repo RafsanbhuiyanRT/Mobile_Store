@@ -1,32 +1,73 @@
-﻿<div class="d-flex justify-content-center">
-    <form style="width: 300px;">
+﻿
+
+<div class="d-flex justify-content-center">
+    <form id="frm" style="width: 300px;">
         <h4 class="text-center mb-4">Sign Up</h4>
-        
+        <input type="hidden" id="editId" />
         <div class="mb-3">
-            <label for="signupEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="signupEmail" aria-describedby="emailHelp" placeholder="Enter your email">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter your email">
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
         <div class="mb-3">
-            <label for="singupNumber" class="form-label">Phone Number</label>
-            <input type="number" class="form-control" id="singupNumber" placeholder="Enter a phone number" />
+            <label for="number" class="form-label">Phone Number</label>
+            <input type="number" class="form-control" id="number" placeholder="Enter a phone number" />
         </div>
         <div class="mb-3">
-            <label for="signupUserName" class="form-label">User Name</label>
-            <input type="text" class="form-control" id="signupUserName" placeholder="Enter your user name">
+            <label for="UserName" class="form-label">User Name</label>
+            <input type="text" class="form-control" id="UserName" placeholder="Enter your username">
         </div>
         <div class="mb-3">
-            <label for="signupPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="signupPassword" placeholder="Enter your password">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter your password">
         </div>
         <div class="mb-3">
-            <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" id="signupConfirmPassword" placeholder="Confirm your password">
+            <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="ConfirmPassword" placeholder="Confirm your password">
         </div>
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="termsCheck">
             <label class="form-check-label" for="termsCheck">I agree to the terms and conditions</label>
         </div>
-        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+        <button id="btnSave" type="submit" class="btn btn-primary w-100">Sign Up</button>
     </form>
 </div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $("#btnSave").click(function (e) {
+            e.preventDefault();
+
+            if ($("frm").valid(){
+                let data = {
+                    id: $("#editId").val(),
+                    email: $("#email").val(),
+                    number: $("#number").val(),
+                    userName: $("#UserName").val(),
+                    Password: $("#password").val(),
+                    confirmPassword: $("#ConfirmPassword").val(),
+                    termsCheck: $("#termsCheck").is(":checked")
+                };           
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/Account/SignUp',
+                    data: data,
+                    success: function (res) {
+                        $("#editId").val(0);
+                        toastr.success(res);
+                        $("#frm").trigger("reset");                 
+                    }
+                    error: function (err) {
+                       
+                    }
+            });
+
+       
+
+        })
+        });
+
+    </script>
+}

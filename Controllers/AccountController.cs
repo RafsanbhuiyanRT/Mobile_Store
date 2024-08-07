@@ -3,13 +3,16 @@ using EcommerceApp.Models;
 using EcommerceApp.Models.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Hosting;
 
 namespace EcommerceApp.Controllers
 {
     public class AccountController(AppDbContext db, UserManager<ApplicationUser> userManager,
-        RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager,
-        IConfiguration configuration, IWebHostEnvironment webHostEnvironment) : Controller
+      RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager,
+      IConfiguration configuration, IWebHostEnvironment webHostEnvironment) : Controller
     {
+
         private AppDbContext _db => db;
         private UserManager<ApplicationUser> _userManager => userManager;
         private RoleManager<IdentityRole> _roleManager => roleManager;
@@ -17,19 +20,22 @@ namespace EcommerceApp.Controllers
         private IWebHostEnvironment _webHostEnvironment => webHostEnvironment;
         private IConfiguration _configuration => configuration;
 
+
         public IActionResult LoginIndex()
         {
             return View();
         }
+
         public IActionResult SignUpIndex()
         {
             return View();
         }
 
+
         [HttpPost]
         public async Task<JsonResult> SignUp(int id, string email, string phone, string userName, string password, string confirmPassword, bool condition)
         {
-            string msg = "";
+            string message = "";
             if (id == 0)
             {
                 if ((_db.Logins.FirstOrDefault(x => x.UserName == userName) is null))
@@ -60,26 +66,21 @@ namespace EcommerceApp.Controllers
                     };
                     var result = await _userManager.CreateAsync(user, "1210");
                     await _userManager.AddToRoleAsync(user, "Customar");
-                    msg = "sussessfully save";
+                    message = "sussessfully save";
                 }
                 else
                 {
-                    msg = "Customar already exist";
+                    message = "Customar already exist";
                 }
-            }
-            else
-            {
-                if (_db.Logins.FirstOrDefault(x => x.Id == id) is not null)
-                {
-
-                }
-            }
-            return null;
+            }  
+            return Json(message);
         }
 
-        public async Task<ActionResult> Login(string userName, string password)
-        {
-            return null;
-        }
+        //public async Task<JsonResult> Update(int id, string email, string phone, string userName, string password, string confirmPassword, bool condition)
+        //{
+        //    var data = _db.l
+        //    return null;
+        //}
+
     }
 }

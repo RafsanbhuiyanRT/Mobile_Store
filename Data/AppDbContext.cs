@@ -7,5 +7,19 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
     public DbSet<Login> Logins { get; set; }
     public DbSet<Signup> Signups { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categorys { get; set; }
+       
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Category>()
+            .HasData(
+                new Category { Id = 1, Name = "Mobile" },
+                new Category { Id = 2, Name = "Laptop" },
+                new Category { Id = 3, Name = "Watch" }
+            );
+
+        base.OnModelCreating(modelBuilder);
+    }
 }
  
