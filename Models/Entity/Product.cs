@@ -12,6 +12,7 @@ namespace EcommerceApp.Models.Entity
         public string? Description { get; set; }
         public string? Path { get; set; }
         public IFormFile? ImagePath { get; set; }
+        public int CategoryId { get; set; }
         public Category? Category { get; set; }
     }
 }

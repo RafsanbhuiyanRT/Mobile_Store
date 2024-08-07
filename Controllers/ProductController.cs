@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceApp.Controllers;
-
-public class AdminController : Controller
+public class ProductController : Controller
 {
-    public ActionResult Index() 
-    { 
+    public IActionResult Index()  
+    {
         return View();
     }
 }

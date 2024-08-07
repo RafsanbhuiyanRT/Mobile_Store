@@ -25,8 +25,8 @@
             display: flex;
             flex-wrap: nowrap;
             height: -moz-calc(100vh - 59px);
-            height: -webkit-calc(100vh - 59px);
-            height: calc(100vh - 59px);
+            height: -webkit-calc(100% - 59px);
+            height: calc(100% - 59px);
             max-height: 100vh;
             overflow-x: auto;
             overflow-y: hidden;
@@ -81,7 +81,7 @@
         </nav>
     </header>
     <main>
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+        <div class="d-flex flex-column p-3 text-white bg-dark" style="width: 280px;">
             <ul class="nav nav-pills flex-column mb-auto" id="sideBar">
                 <li>
                     <a class="nav-link text-white active" asp-area="" asp-controller="Admin" asp-action="Index">
@@ -96,13 +96,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">
+                    <a class="nav-link text-white" asp-controller="Product" asp-action="Index">
                         <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
                         Products
+
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">
+                    <a class="nav-link text-white" asp-controller="Category" asp-action="Index">
                         <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
                         Category
                     </a>
@@ -119,7 +120,7 @@
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
                     <strong>@* @User.FindFirstValue("userName") *@</strong>
-                    
+
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1" style="">
                     @* <li><a class="dropdown-item" href="#">New project...</a></li>
@@ -130,10 +131,12 @@
                 </ul>
             </div>
         </div>
-
         <div class="b-divider"></div>
-        <div class="d-flex flex-column flex-shrink-0 ms-1">
-            @RenderBody()
+
+        <div class="d-flex flex-column p-1 w-100" style="overflow-y:scroll; height: calc(100vh - 59px);">
+            <div>
+                @RenderBody()
+            </div>
         </div>
     </main>
 

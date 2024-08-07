@@ -14,9 +14,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     {
         modelBuilder.Entity<Category>()
             .HasData(
-                new Category { Id = 1, Name = "Mobile" },
-                new Category { Id = 2, Name = "Laptop" },
-                new Category { Id = 3, Name = "Watch" }
+                new Category { Name = "Mobile" },
+                new Category {  Name = "Laptop" },
+                new Category {  Name = "Watch" }
             );
 
         base.OnModelCreating(modelBuilder);
