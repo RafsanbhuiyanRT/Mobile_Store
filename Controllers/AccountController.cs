@@ -32,7 +32,8 @@ namespace EcommerceApp.Controllers
             string msg = "";
             if (id == 0)
             {
-                if((_db.Logins.FirstOrDefault(x => x.UserName == userName) is null)){
+                if ((_db.Logins.FirstOrDefault(x => x.UserName == userName) is null))
+                {
                     var signup = new Signup
                     {
                         Email = email,
@@ -57,14 +58,14 @@ namespace EcommerceApp.Controllers
                         UserType = "Customar",
                         EntityId = signup.Id
                     };
-                    var result = await _userManager.CreateAsync(user,"1210");
+                    var result = await _userManager.CreateAsync(user, "1210");
                     await _userManager.AddToRoleAsync(user, "Customar");
                     msg = "sussessfully save";
                 }
                 else
                 {
                     msg = "Customar already exist";
-                }               
+                }
             }
             else
             {
@@ -72,11 +73,13 @@ namespace EcommerceApp.Controllers
                 {
 
                 }
+            }
+            return null;
         }
 
         public async Task<ActionResult> Login(string userName, string password)
         {
-
+            return null;
         }
     }
 }
