@@ -33,7 +33,7 @@ namespace EcommerceApp.Controllers
 
 
         [HttpPost]
-        public async Task<JsonResult> SignUp(int id, string email, string phone, string userName, string password, string confirmPassword, bool condition)
+        public async Task<JsonResult> SignUp(int id, string email, string phone, string userName, string password, string confirmPassword, string address, bool condition)
         {
             string message = "";
             if (id == 0)
@@ -47,6 +47,7 @@ namespace EcommerceApp.Controllers
                         Username = userName,
                         Password = password,
                         ConfirmPassword = confirmPassword,
+                        Address = address,
                         Condition = condition
                     };
                     _db.Signups.Add(signup);

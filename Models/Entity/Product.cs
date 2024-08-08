@@ -7,7 +7,7 @@ namespace EcommerceApp.Models.Entity
         [Key]
         public int Id { get; set; }
         public string? Brand { get; set; }
-        public string? Model { get; set; }
+        public string? Modal { get; set; }
         public string? Price { get; set; }      
         public string? Description { get; set; }
         public string? Path { get; set; }
