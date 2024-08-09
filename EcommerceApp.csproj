@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
       <PrivateAssets>all</PrivateAssets>
@@ -33,6 +34,10 @@
   <ItemGroup>
     <Folder Include="Area\Admin\" />
     <Folder Include="Area\Customar\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\salse.js" />
   </ItemGroup>
 
 

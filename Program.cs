@@ -15,7 +15,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
- 
+ builder.Services.AddMvc().AddRazorRuntimeCompilation();
+
 
 var app = builder.Build();
     
