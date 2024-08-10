@@ -1,4 +1,5 @@
 ﻿using EcommerceApp.Models.Entity;
+using EcommerceApp.Models.Entity.UserAddress;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceApp.Data;
@@ -9,14 +10,19 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Signup> Signups { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categorys { get; set; }
-       
+
+    public DbSet<Division> Divisions { get; set; }
+    public DbSet<Zila> Zilas { get; set; }
+    public DbSet<Thana> Thanas { get; set; }
+
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Category>()
             .HasData(
-                new Category { Name = "Mobile" },
-                new Category {  Name = "Laptop" },
-                new Category {  Name = "Watch" }
+                new Category {Id = 1, Name = "Mobile" },
+                new Category {Id = 2, Name = "Laptop" },
+                new Category {Id = 3, Name = "Watch" }
             );
 
         base.OnModelCreating(modelBuilder);
