@@ -11,7 +11,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categorys { get; set; }
 
-    public DbSet<Division> Divisions { get; set; }
+    //public DbSet<Division> Divisions { get; set; }
     public DbSet<Zila> Zilas { get; set; }
     public DbSet<Thana> Thanas { get; set; }
 

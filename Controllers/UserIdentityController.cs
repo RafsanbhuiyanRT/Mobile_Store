@@ -11,11 +11,11 @@ namespace EcommerceApp.Controllers
             this._dbContext = dbContext;
         }
 
-        public JsonResult Division()
-        {
-            var divisions = _dbContext.Divisions.ToList();
-            return new JsonResult(divisions);
-        }
+        //public JsonResult Division()
+        //{
+        //    var divisions = _dbContext.Divisions.ToList();
+        //    return new JsonResult(divisions);
+        //}
         public JsonResult Zila(int id)
         {
             var zila = _dbContext.Zilas.Where(x => x.Id == id).ToList();

@@ -7,6 +7,7 @@ namespace EcommerceApp.Models.Entity.UserAddress
         [Key]
         public int Id { get; set; }
         public string? Name { get; set; }
+        public int ZilaId { get; set; }
         public Zila? Zila { get; set; }
     }
 }

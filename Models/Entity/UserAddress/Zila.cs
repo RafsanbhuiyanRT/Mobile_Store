@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EcommerceApp.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace EcommerceApp.Models.Entity.UserAddress
 {
@@ -7,6 +8,6 @@ namespace EcommerceApp.Models.Entity.UserAddress
         [Key]
         public int Id { get; set; }
         public string? Name { get; set; }
-        public Division? Division { get; set; }
+        public Division Division { get; set; }
     }
 }
