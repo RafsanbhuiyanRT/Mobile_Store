@@ -12,6 +12,7 @@ public class DefaultData
     {
         var scope = service.CreateScope();
         var dbscope = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
         var db = new AppDbContext(new DbContextOptions<AppDbContext>());
         var divisions = Enum.GetValues<Division>();
         foreach (var dp in typeof(Divisions).GetProperties())

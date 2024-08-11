@@ -1,4 +1,6 @@
 ﻿using EcommerceApp.Data;
+using EcommerceApp.Models.Entity.UserAddress;
+using EcommerceApp.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceApp.Controllers
@@ -10,25 +12,32 @@ namespace EcommerceApp.Controllers
         {
             this._dbContext = dbContext;
         }
-
-        //public JsonResult Division()
-        //{
-        //    var divisions = _dbContext.Divisions.ToList();
-        //    return new JsonResult(divisions);
-        //}
-        public JsonResult Zila(int id)
-        {
-            var zila = _dbContext.Zilas.Where(x => x.Id == id).ToList();
-            return new JsonResult(zila);
-        }
-        public JsonResult thana(int id)
-        {
-            var thana = _dbContext.Thanas.Where(x => x.Id == id).ToList();
-            return new JsonResult(thana);
-        }
         public IActionResult Index()
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(int id, string reference, string phone, int orderNo, string address, DateTime dateTime, string item, int quantity, decimal               unitprice)
+        {
+            string message = "";
+            var userDetalse = new UserDetalse
+            {
+                Reference = reference,
+                Phone = phone,
+                OrderNo = orderNo,
+                Address = address,
+                OrderDate = dateTime,
+                Item = item,
+                Quantity = quantity,
+                UnitPrice = unitprice
+            };
+
+            await _dbContext.AddAsync(userDetalse);
+            await _dbContext.SaveChangesAsync();
+
+            return Ok("Record created successfully"); 
+        }
+
     }
 }
