@@ -8,16 +8,17 @@ namespace EcommerceApp.Models;
 
 public class DefaultData
 {
-    public static void AddZila(IServiceProvider service)
+    public static async Task AddZila(IServiceProvider service)
     {
+        
         var scope = service.CreateScope();
-        var dbscope = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        var allZila = db.Zilas.ToList();
 
-        var db = new AppDbContext(new DbContextOptions<AppDbContext>());
         var divisions = Enum.GetValues<Division>();
         foreach (var dp in typeof(Divisions).GetProperties())
         {
-            var division = divisions.FirstOrDefault(x => nameof(x).Equals(dp.Name, StringComparison.OrdinalIgnoreCase));
+            var division = divisions.FirstOrDefault(x => x.ToString().Equals(dp.Name, StringComparison.OrdinalIgnoreCase));
             var type = Activator.CreateInstance(dp.PropertyType);
             foreach (var zp in dp.PropertyType.GetProperties())
             {
@@ -26,8 +27,8 @@ public class DefaultData
                     Name = zp.Name,
                     Division = division
                 };
-                db.Add(zila);
-                db.SaveChanges();
+                await db.AddAsync(zila);
+                await db.SaveChangesAsync();
                 if (zp.GetValue(type) is List<string> thana)
                 {
                     var thanas = new List<Thana>();
@@ -39,8 +40,8 @@ public class DefaultData
                             ZilaId = zila.Id
                         });
                     }
-                    db.AddRangeAsync(thanas);
-                    db.SaveChangesAsync();
+                    await db.AddRangeAsync(thanas);
+                    await db.SaveChangesAsync();
                 }
             }
         }

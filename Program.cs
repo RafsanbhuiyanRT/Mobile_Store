@@ -39,6 +39,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-//DefaultData.AddZila(app.Services);
+//await DefaultData.AddZila(app.Services);
 
 app.Run();

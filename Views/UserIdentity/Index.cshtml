@@ -157,7 +157,7 @@
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-sm" id="datatableData">
+                    <table class="table table-bordered table-hover table-sm" id="dataTable">
                         <thead>
                             <tr>
                                 <td class="text-center">Reference</td>
@@ -204,6 +204,13 @@
                 btn: {
                     addItemBtn: $('#addItemBtn'),
                     saveBtn: $('#saveBtn')
+                }
+            },
+            grid: {
+                table: $('#dataTable'),
+                btn: {
+                    edit: $(''),
+                    delete: $('')
                 }
             }
         };
@@ -287,17 +294,18 @@
                 "Sherpur": ["Jhenaigati", "Nakla", "Nalitabari", "Sherpur Sadar", "Sreebardi"]
             }
         };
-
+        var dataTable = el.grid.table.dataTable();
         $(document).ready(function () {
-            var divisionSel = $('#division')
+            var divisionSel = el.from.main.division
             var zilaSel = $('#zila');
             var thanaSel = $('#thana');
 
-            $.each(bangladesh, function (e) {             
+            $.each(bangladesh, function (e) {
                 divisionSel.append(new Option(e));
             });
 
-            divisionSel.on('change', function () {          
+            divisionSel.on('change', function () {
+                debugger;
                 zilaSel.empty().append(new Option("Select Zila", ""));
                 thanaSel.empty().append(new Option("Select Thana", ""));
                 var selectedDivision = this.value;
@@ -308,7 +316,7 @@
                     });
                 }
             });
-            
+
             zilaSel.on('change', function () {
                 thanaSel.empty().append(new Option("Select Theana", ""));
                 var selectedDivision = divisionSel.val();
