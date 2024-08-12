@@ -1,5 +1,4 @@
-﻿using EcommerceApp.Models.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EcommerceApp.Models.Entity.UserAddress
 {
@@ -13,8 +12,10 @@ namespace EcommerceApp.Models.Entity.UserAddress
         public int OrderNo { get; set; }
         public string? Address { get; set; }
         public DateTime OrderDate { get; set; }
-        public string? Item { get; set; }
+        public string? ItemName { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
+        public int UProductDetalseId { get; set; }
+        public ProductDetalse? ProductDetalse { get; set; }
     }
 }

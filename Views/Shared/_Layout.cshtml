@@ -42,8 +42,12 @@
                                 <button class="btn btn-outline-success" type="submit">Search</button>
                             </form>
                         </li>
-                        <li>
+                        <li class="d-flex justify-content-between ">
                             <a class="btn btn-outline-success d-flex text-center " asp-controller="UserIdentity" action="Index">User</a>
+                        </li>
+                        <li >
+                            <a class="btn btn-outline-success d-flex text-center " asp-controller="ProductDetalse" action="Index">Crete</a>
+
                         </li>
                     </ul>
                    
@@ -68,12 +72,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - EcommerceApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+   
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/js/datatables/datatables.min.js"></script>
     <script src="~/lib/datatable/js/datatable.jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
