@@ -2,7 +2,9 @@
 
 namespace EcommerceApp.Models.Entity.UserAddress
 {
-    public class UserDetalse
+    public class UserDetails
+
+
     {
         [Key]
         public int Id { get; set; }
@@ -16,6 +18,6 @@ namespace EcommerceApp.Models.Entity.UserAddress
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public int UProductDetalseId { get; set; }
-        public ProductDetalse? ProductDetalse { get; set; }
+       
     }
 }

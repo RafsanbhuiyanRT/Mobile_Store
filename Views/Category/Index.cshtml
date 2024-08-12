@@ -24,6 +24,7 @@
                             <tr>
                                 <th class="text-center" ># </th>
                                 <th class="text-center">Name</th>                              
+                                <th class="text-center">Category</th>                              
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -46,12 +47,15 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="mText" placeholder="Enter Category Name" />
+                    <input type="text" class="form-control" id="cName" placeholder="Enter Category Name" />
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="cDescription" placeholder="Category Description" />
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary " id="savebtn">Save</button>
             </div>
         </div>
     </div>

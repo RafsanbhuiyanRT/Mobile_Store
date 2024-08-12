@@ -6,35 +6,361 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="card ">
+        <div class="card">
             <div class="card-header">
-                <div class="row">
-                    <div class="col-6">
-                        <h3 class="text-dark">Order List</h3>
+                <h4 class="text-center">Customar Order</h4>
+            </div>
+            <div class="card-body">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <form id="addressfrm">
+                            <div class="row justify-content-between">
+                                <div class="col-4">
+                                    <div class="row mb-3">
+                                        <label for="reference" class="col-sm-4 col-form-label col-form-label-sm">Reference</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-sm" id="reference" name="reference" placeholder="Enter reference">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="phone" class="col-sm-4 col-form-label col-form-label-sm">Phone</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-control-sm" id="phone" name="phone" placeholder="Enter phone">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    @* this is last 4 col *@
+                                    <div class="row mb-3">
+                                        <label for="supplier" class="col-sm-3  col-form-label-sm">Supplier</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-select" name="supplier" id="supplier">
+                                                <option value="" selected="selected"> Supplier</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="orderNo" class="col-sm-3 col-form-label col-form-label-sm">Order No</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control form-control-sm" id="orderNo" name="orderNo" placeholder="Enter orderNo">
+                                        </div>
+                                    </div>
+                                </div> @* right part *@
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-8">
+                                    <div class="row mb-3">
+                                        <label for="address" class="col-sm-2  col-form-label-sm">Address</label>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <select class="form-select" name="division" id="division">
+                                                        <option value="" selected="selected">Select division</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select class="form-select" name="zila" id="zila">
+                                                        <option value="" selected="selected">Select zila</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select class="form-select" name="thana" id="thana">
+                                                        <option value="" selected="selected">Select thana</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row mb-3">
+                                        <label for="dateTime" class="col-sm-3 col-form-label col-form-label-sm">DateTime</label>
+                                        <div class="col-sm-9">
+                                            <input type="datetime-local" class="form-control form-control-sm" id="dateTime" name="dateTime">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="productForm">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <td class="text-center col-sm-3">
+                                                <select class="form-select" name="item" id="item">
+                                                    <option value="" selected="selected">Select item name</option>
+                                                </select>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control form-control-sm" id="unitPrice" placeholder="Price" readonly />
+                                            </td>
+
+                                            <td class="text-center">
+                                                <input type="number" class="form-control form-control-sm" id="quantity" placeholder="Enter item quantity" />
+                                            </td>
+
+                                            <td class="d-flex justify-content-center mt-1">
+                                                <button class="btn btn-sm btn-success" id="addItemBtn">
+                                                    <i class="bi bi-plus-circle"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="table-responsive justify-content-between">
+                                <table class="table table-bordered table-hover table-sm">
+
+                                    <thead>
+                                        <tr>
+                                            <td class="text-center fw-bold">Item</td>
+                                            <td class="text-center fw-bold">Unit Price</td>
+                                            <td class="text-center fw-bold">Quantity</td>
+                                            <td class="text-center fw-bold">Action</td>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <td>Laptop</td>
+                                            <td class="text-end">2</td>
+                                            <td class="text-end">50,000</td>
+                                            <td class="d-flex justify-content-center w-auto">
+                                                <button class="btn btn-sm btn-primary">
+                                                    <i class="bi bi-pencil"></i>
+                                                </button>
+
+                                                <button class="btn btn-sm btn-danger ms-1">
+                                                    <i class="bi bi-archive"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td class="fw-bold text-end" colspan="2">Total</td>
+                                            <td class="fw-bold text-end">0.00</td>
+                                            <td></td>
+                                        </tr>
+
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="d-flex justify-content-end mt-1">
+                                @* save button *@
+                                <button type="button" class="btn btn-success" id="saveBtn">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+            </div>
+
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover table-sm" id="dataTable">
                         <thead>
                             <tr>
-                                <th class="text-center">Order ID</th>
-                                <th class="text-center">Customer Name</th>
-                                <th class="text-center">Product</th>
-                                <th class="text-center">Quantity</th>
-                                <th class="text-center">Price</th>
-                                <th class="text-center">Order Date</th>
-                                <th class="text-center">Action</th>
+                                <td class="text-center">Reference</td>
+                                <td class="text-center">Phone</td>
+                                <td class="text-center">Supplier</td>
+                                <td class="text-center">Order No</td>
+                                <td class="text-center">Address</td>
+                                <td class="text-center">DateTime</td>
+                                <td class="text-center">Item</td>
+                                <td class="text-center">Quantity</td>
+                                <td class="text-center">Unit Price</td>
+                                <td class="text-center">Total Price</td>
+                                <td class="text-center">Action</td>
+
                             </tr>
                         </thead>
-                        <tobdy>
-
-                        </tobdy>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+
+    <script>
+        var el = {
+            from: {
+                main: {
+                    reference: $('#reference'),
+                    phone: $('#phone'),
+                    supplier: $('#supplier'),
+                    orderNo: $('#orderNo'),
+                    division: $('#division'),
+                    zila: $('#zila'),
+                    thana: $('#thana'),
+                    dateTime: $('#dateTime')
+                },
+                body: {
+                    item: $('#item'),
+                    quantity: $('#quantity'),
+                    unitPrice: $('#unitPrice')
+                },
+                btn: {
+                    addItemBtn: $('#addItemBtn'),
+                    saveBtn: $('#saveBtn')
+                }
+            },
+            grid: {
+                table: $('#dataTable'),
+                btn: {
+                    edit: $(''),
+                    delete: $('')
+                }
+            }
+        };
+        var bangladesh = {
+            "Chattogram": {
+                "Chattogram": ["Anwara", "Banshkhali", "Boalkhali", "Chandanaish", "Fatikchhari", "Hathazari", "Lohagara", "Mirsharai", "Patiya", "Rangunia", "Raozan", "Sandwip", "Satkania", "Sitakunda"],
+                "Cumilla": ["Barura", "Brahmanpara", "Burichang", "Chandina", "Chauddagram", "Daudkandi", "Debidwar", "Homna", "Laksam", "Meghna", "Muradnagar", "Nangalkot", "Titas"],
+                "Cox's Bazar": ["Chakaria", "Cox's Bazar Sadar", "Kutubdia", "Maheshkhali", "Pekua", "Ramu", "Teknaf", "Ukhia"],
+                "Brahmanbaria": ["Akhaura", "Ashuganj", "Bancharampur", "Brahmanbaria Sadar", "Kasba", "Nabinagar", "Nasirnagar", "Sarail"],
+                "Bandarban": ["Ali Kadam", "Bandarban Sadar", "Lama", "Naikhongchhari", "Rowangchhari", "Ruma", "Thanchi"],
+                "Chandpur": ["Chandpur Sadar", "Faridganj", "Haimchar", "Haziganj", "Kachua", "Matlab Dakshin", "Matlab Uttar", "Shahrasti"],
+                "Feni": ["Chhagalnaiya", "Daganbhuiyan", "Feni Sadar", "Fulgazi", "Parshuram", "Sonagazi"],
+                "Khagrachari": ["Dighinala", "Khagrachhari", "Lakshmichhari", "Mahalchhari", "Manikchhari", "Matiranga", "Panchhari", "Ramgarh"],
+                "Lakshmipur": ["Lakshmipur Sadar", "Raipur", "Ramganj", "Ramgati", "Komol Nagar"],
+                "Noakhali": ["Begumganj", "Chatkhil", "Companiganj", "Hatiya", "Kabirhat", "Noakhali Sadar", "Senbagh", "Subarnachar"],
+                "Rangamati": ["Baghaichhari", "Barkal", "Kaptai", "Juraichhari", "Kawkhali", "Langadu", "Naniachar", "Rajasthali", "Rangamati Sadar"]
+            },
+            "Dhaka": {
+                "Dhaka": ["Adabor", "Badda", "Bangshal", "Biman Bandar", "Cantonment", "Chawkbazar", "Dakkhin Khan", "Demra", "Dhanmondi", "Gendaria", "Gulshan", "Hazaribagh", "Jatrabari", "Kadamtali", "Kafrul", "Kalabagan", "Kamrangirchar", "Khilkhet", "Khilgaon", "Kotwali", "Lalbagh", "Mirpur", "Mohammadpur", "Motijheel", "New Market", "Pallabi", "Paltan", "Ramna", "Rampura", "Sabujbagh", "Shah Ali", "Shahbagh", "Sher-e-Bangla Nagar", "Shyampur", "Sutrapur", "Tejgaon", "Tejgaon Industrial Area", "Turag", "Uttar Khan", "Uttara"],
+                "Gazipur": ["Gazipur Sadar", "Kaliakair", "Kapasia", "Sreepur", "Kaliganj"],
+                "Kishoreganj": ["Austagram", "Bajitpur", "Bhairab", "Hossainpur", "Itna", "Karimganj", "Katiadi", "Kishoreganj Sadar", "Kuliarchar", "Mithamain", "Nikli", "Pakundia", "Tarail"],
+                "Madaripur": ["Madaripur Sadar", "Kalkini", "Rajoir", "Shibchar"],
+                "Manikganj": ["Manikganj Sadar", "Singair", "Shibalaya", "Saturia", "Harirampur", "Ghior", "Daulatpur"],
+                "Munshiganj": ["Munshiganj Sadar", "Lohajang", "Sirajdikhan", "Sreenagar", "Gazaria", "Tongibari"],
+                "Narayanganj": ["Araihazar", "Bandar", "Narayanganj Sadar", "Rupganj", "Sonargaon"],
+                "Narsingdi": ["Narsingdi Sadar", "Belabo", "Monohardi", "Palash", "Raipura", "Shibpur"],
+                "Rajbari": ["Baliakandi", "Goalandaghat", "Pangsha", "Kalukhali", "Rajbari Sadar"],
+                "Shariatpur": ["Bhedarganj", "Damudya", "Gosairhat", "Naria", "Shariatpur Sadar", "Zajira"],
+                "Tangail": ["Tangail Sadar", "Bhuapur", "Delduar", "Dhanbari", "Ghatail", "Gopalpur", "Kalihati", "Madhupur", "Mirzapur", "Nagarpur", "Sakhipur", "Basail"]
+            },
+            "Khulna": {
+                "Bagerhat": ["Bagerhat Sadar", "Chitalmari", "Fakirhat", "Kachua", "Mollahat", "Mongla", "Morrelganj", "Rampal", "Sarankhola"],
+                "Chuadanga": ["Alamdanga", "Chuadanga Sadar", "Damurhuda", "Jibannagar"],
+                "Jashore": ["Abhaynagar", "Bagherpara", "Chaugachha", "Jashore Sadar", "Jhikargachha", "Keshabpur", "Manirampur", "Sharsha"],
+                "Jhenaidah": ["Harinakunda", "Jhenaidah Sadar", "Kaliganj", "Kotchandpur", "Maheshpur", "Shailkupa"],
+                "Khulna": ["Batiaghata", "Dacope", "Dumuria", "Dighalia", "Koyra", "Paikgachha", "Phultala", "Rupsa", "Terokhada"],
+                "Kushtia": ["Bheramara", "Daulatpur", "Khoksa", "Kumarkhali", "Kushtia Sadar", "Mirpur"],
+                "Magura": ["Magura Sadar", "Mohammadpur", "Shalikha", "Sreepur"],
+                "Meherpur": ["Gangni", "Meherpur Sadar", "Mujibnagar"],
+                "Narail": ["Kalia", "Lohagara", "Narail Sadar"],
+                "Satkhira": ["Assasuni", "Debhata", "Kalaroa", "Kaliganj", "Satkhira Sadar", "Shyamnagar", "Tala"]
+            },
+            "Rajshahi": {
+                "Bogura": ["Adamdighi", "Bogra Sadar", "Dhunat", "Dhupchanchia", "Gabtali", "Kahaloo", "Nandigram", "Sariakandi", "Shajahanpur", "Sherpur", "Shibganj", "Sonatala"],
+                "Joypurhat": ["Akkelpur", "Joypurhat Sadar", "Kalai", "Khetlal", "Panchbibi"],
+                "Naogaon": ["Atrai", "Badalgachhi", "Dhamoirhat", "Manda", "Mohadevpur", "Naogaon Sadar", "Niamatpur", "Patnitala", "Porsha", "Raninagar", "Sapahar"],
+                "Natore": ["Bagatipara", "Baraigram", "Gurudaspur", "Lalpur", "Naldanga", "Natore Sadar", "Singra"],
+                "Chapainawabganj": ["Bholahat", "Gomastapur", "Nachole", "Nawabganj Sadar", "Shibganj"],
+                "Pabna": ["Atgharia", "Bera", "Bhangura", "Chatmohar", "Faridpur", "Ishwardi", "Pabna Sadar", "Santhia", "Sujanagar"],
+                "Rajshahi": ["Bagha", "Bagmara", "Charghat", "Durgapur", "Godagari", "Mohanpur", "Paba", "Puthia", "Tanore"],
+                "Sirajganj": ["Belkuchi", "Chauhali", "Kamarkhanda", "Kazipur", "Raiganj", "Shahjadpur", "Sirajganj Sadar", "Tarash", "Ullahpara"]
+            },
+            "Barishal": {
+                "Barishal": ["Agailjhara", "Babuganj", "Bakerganj", "Banaripara", "Barishal Sadar", "Gaurnadi", "Hizla", "Mehendiganj", "Muladi", "Wazirpur"],
+                "Barguna": ["Amtali", "Bamna", "Barguna Sadar", "Betagi", "Patharghata", "Taltali"],
+                "Bhola": ["Bhola Sadar", "Burhanuddin", "Char Fasson", "Daulatkhan", "Lalmohan", "Manpura", "Tazumuddin"],
+                "Jhalokathi": ["Jhalokathi Sadar", "Kathalia", "Nalchity", "Rajapur"],
+                "Patuakhali": ["Bauphal", "Dashmina", "Galachipa", "Kalapara", "Mirzaganj", "Patuakhali Sadar", "Rangabali"],
+                "Pirojpur": ["Bhandaria", "Kawkhali", "Mathbaria", "Nazirpur", "Nesarabad (Swarupkathi)", "Pirojpur Sadar", "Zianagar"]
+            },
+            "Sylhet": {
+                "Habiganj": ["Ajmiriganj", "Bahubal", "Baniachang", "Chunarughat", "Habiganj Sadar", "Lakhai", "Madhabpur", "Nabiganj", "Shaistaganj"],
+                "Moulvibazar": ["Barlekha", "Juri", "Kamalganj", "Kulaura", "Moulvibazar Sadar", "Rajnagar", "Sreemangal"],
+                "Sunamganj": ["Bishwamvarpur", "Chhatak", "Dakshin Sunamganj", "Derai", "Dharampasha", "Dowarabazar", "Jagannathpur", "Jamalganj", "Sullah", "Sunamganj Sadar", "Tahirpur"],
+                "Sylhet": ["Balaganj", "Beanibazar", "Bishwanath", "Companiganj", "Dakshin Surma", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur", "Kanaighat", "Osmaninagar", "Sylhet Sadar"]
+            },
+            "Rangpur": {
+                "Dinajpur": ["Birampur", "Birganj", "Biral", "Bochaganj", "Chirirbandar", "Dinajpur Sadar", "Ghoraghat", "Hakimpur", "Kaharole", "Khansama", "Nawabganj", "Parbatipur"],
+                "Gaibandha": ["Fulchhari", "Gaibandha Sadar", "Gobindaganj", "Palashbari", "Sadullapur", "Saghata", "Sundarganj"],
+                "Kurigram": ["Bhurungamari", "Char Rajibpur", "Chilmari", "Kurigram Sadar", "Nageshwari", "Phulbari", "Rajarhat", "Raomari", "Ulipur"],
+                "Lalmonirhat": ["Aditmari", "Hatibandha", "Kaliganj", "Lalmonirhat Sadar", "Patgram"],
+                "Nilphamari": ["Dimla", "Domar", "Jaldhaka", "Kishoreganj", "Nilphamari Sadar", "Saidpur"],
+                "Panchagarh": ["Atwari", "Boda", "Debiganj", "Panchagarh Sadar", "Tetulia"],
+                "Rangpur": ["Badarganj", "Gangachara", "Kaunia", "Mithapukur", "Pirgachha", "Pirgachha", "Rangpur Sadar", "Taraganj"],
+                "Thakurgaon": ["Baliadangi", "Haripur", "Pirganj", "Ranisankail", "Thakurgaon Sadar"]
+            },
+            "Mymensingh": {
+                "Jamalpur": ["Baksiganj", "Dewanganj", "Islampur", "Jamalpur Sadar", "Madarganj", "Melandaha", "Sarishabari"],
+                "Mymensingh": ["Bhaluka", "Dhobaura", "Fulbaria", "Gaffargaon", "Gauripur", "Haluaghat", "Ishwarganj", "Mymensingh Sadar", "Muktagachha", "Nandail", "Phulpur", "Trishal"],
+                "Netrokona": ["Atpara", "Barhatta", "Durgapur", "Kalmakanda", "Kendua", "Khaliajuri", "Madan", "Mohanganj", "Netrokona Sadar", "Purbadhala"],
+                "Sherpur": ["Jhenaigati", "Nakla", "Nalitabari", "Sherpur Sadar", "Sreebardi"]
+            }
+        };
+
+        var dataTable = el.grid.table.dataTable();
+
+        el.from.btn.saveBtn.click(function (e) {
+            e.preventDefault();
+
+            if (!$('#addressfrm').valid()) {
+                return;
+            }
+            let data = {
+
+            }
+
+        })
+
+        $(document).ready(function () {
+            var divisionSel = el.from.main.division
+            var zilaSel = $('#zila');
+            var thanaSel = $('#thana');
+
+            $.each(bangladesh, function (e) {
+                divisionSel.append(new Option(e));
+            });
+
+            divisionSel.on('change', function () {
+                debugger;
+                zilaSel.empty().append(new Option("Select Zila", ""));
+                thanaSel.empty().append(new Option("Select Thana", ""));
+                var selectedDivision = this.value;
+
+                if (selectedDivision) {
+                    $.each(bangladesh[selectedDivision], function (zila) {
+                        zilaSel.append(new Option(zila));
+                    });
+                }
+            });
+
+            zilaSel.on('change', function () {
+                thanaSel.empty().append(new Option("Select Theana", ""));
+                var selectedDivision = divisionSel.val();
+                var selectedZila = this.value;
+                if (selectedZila && selectedDivision) {
+                    $.each(bangladesh[selectedDivision][selectedZila], function (i, t) {
+                        thanaSel.append(new Option(t));
+                    });
+                }
+            });
+
+            el.from.main.division.select2();
+            el.from.main.zila.select2();
+            el.from.main.thana.select2();
+            el.from.main.supplier.select2();
+            el.from.body.item.select2();
+        });
+
+    </script>
+
+}

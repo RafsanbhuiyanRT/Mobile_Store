@@ -40,7 +40,7 @@
 </div>
 
 <div id="productModal" class="modal" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Create Category</h5>
@@ -67,15 +67,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <input type="text" class="form-control" id="description" placeholder="Write something" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="path" class="form-label">Path</label>
-                        <input type="text" class="form-control" id="path" placeholder="Enter path" />
+                        <textarea rows="3" type="text" class="form-control" id="description" placeholder="Write something" ></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="imagePath" class="form-label">Uplood image</label>
-                        <input type="image" class="from-controle" id="imagePath" placeholder="Uplood your product img" />
+                        <input type="file" class="from-controle" id="imagePath" placeholder="Uplood your product img" accept="image/*" />
                     </div>
                 </form>
             </div>
