@@ -15,16 +15,16 @@
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#categoryModal">Create Category</button>
                     </div>
                 </div>
-               
+
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive" id="table">
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th class="text-center" ># </th>
-                                <th class="text-center">Name</th>                              
-                                <th class="text-center">Category</th>                              
+                                <th class="text-center"># </th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Category</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -45,18 +45,86 @@
                 <h5 class="modal-title">Create Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <input type="text" class="form-control" id="cName" placeholder="Enter Category Name" />
+            <form id="categoryform">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="cName" placeholder="Enter Category Name" required />
+                    </div>
+                    <div class="mb-3">
+                        <textarea type="text" class="form-control" id="cDescription" placeholder="Category Description"></textarea>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <input type="text" class="form-control" id="cDescription" placeholder="Category Description" />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary " id="savebtn">Save</button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary " id="savebtn">Save</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
+
+
+@section Scripts {
+    <script>
+        var categoryModal = $('#categoryModal');
+        var name = $('#cName');
+        var description = $('#cDescription');
+        var savebtn = $('#savebtn');
+        var categoryform = $('#categoryform');
+
+        function getAllCategory() {
+            $.ajax({
+                url: '/Category/GetAllCategory',
+                type: 'get',
+                success: function (data) {
+                    let tbody = '';
+                    $.each(data, function (key, val) {
+                        tbody += `<tr>
+                                    <td>${key + 1}</td>
+                                    <td>${val.name}</td>
+                                    <td>${val.description}</td>
+
+                                    <td class="d-flex justify-content-center">
+                                        <a class="btn btn-primary btn-sm edit" data-id="${val.id}">Edit</a>
+                                        <a class="btn btn-danger btn-sm delete" data-id="${val.id}">Delete</a>
+                                    </td>
+                                  </tr>`;
+                    });
+                    $('#table tbody').empty();
+                    $('#table tbody').append(tbody);
+                },
+            });
+        }
+
+
+        $('#savebtn').click(function (el) {
+            el.preventDefault();
+
+            var data = {
+                name: $('#cName').val(),
+                description: $('#cDescription').val()
+            };
+            $.ajax({
+                url: '/Category/Create',
+                type: 'post',
+                data: data,
+                success: function () {
+                    getAllCategory()
+                    $('#categoryModal').modal('hide');
+                    $('#categoryform').trigger('reset');
+                    $('#savebtn').text('Save');
+                },
+                error: function () {
+                   
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            getAllCategory();
+        });
+
+    </script>
+}
+   

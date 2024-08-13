@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240810064933_first")]
-    partial class first
+    [Migration("20240813063450_allTable")]
+    partial class allTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,29 +33,15 @@ namespace EcommerceApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Categorys");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Mobile"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Laptop"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Watch"
-                        });
                 });
 
             modelBuilder.Entity("EcommerceApp.Models.Entity.Login", b =>
@@ -80,6 +66,89 @@ namespace EcommerceApp.Migrations
                     b.ToTable("Logins");
                 });
 
+            modelBuilder.Entity("EcommerceApp.Models.Entity.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Division")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DivisionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OrderNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reference")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ThanaId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ZilaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
+
+                    b.HasIndex("ThanaId");
+
+                    b.HasIndex("ZilaId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("EcommerceApp.Models.Entity.OrderDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderDetailes");
+                });
+
             modelBuilder.Entity("EcommerceApp.Models.Entity.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -97,10 +166,14 @@ namespace EcommerceApp.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Modal")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Path")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Price")
@@ -147,7 +220,7 @@ namespace EcommerceApp.Migrations
                     b.ToTable("Signups");
                 });
 
-            modelBuilder.Entity("EcommerceApp.Models.Entity.UserAddress.Division", b =>
+            modelBuilder.Entity("EcommerceApp.Models.Entity.Supplier", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -155,12 +228,25 @@ namespace EcommerceApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Divisions");
+                    b.ToTable("Supplier");
                 });
 
             modelBuilder.Entity("EcommerceApp.Models.Entity.UserAddress.Thana", b =>
@@ -174,7 +260,7 @@ namespace EcommerceApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ZilaId")
+                    b.Property<int>("ZilaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -192,7 +278,7 @@ namespace EcommerceApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("DivisionId")
+                    b.Property<int>("Division")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -200,9 +286,53 @@ namespace EcommerceApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DivisionId");
-
                     b.ToTable("Zilas");
+                });
+
+            modelBuilder.Entity("EcommerceApp.Models.Entity.Order", b =>
+                {
+                    b.HasOne("EcommerceApp.Models.Entity.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EcommerceApp.Models.Entity.UserAddress.Thana", "Thana")
+                        .WithMany()
+                        .HasForeignKey("ThanaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EcommerceApp.Models.Entity.UserAddress.Zila", "Zila")
+                        .WithMany()
+                        .HasForeignKey("ZilaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Supplier");
+
+                    b.Navigation("Thana");
+
+                    b.Navigation("Zila");
+                });
+
+            modelBuilder.Entity("EcommerceApp.Models.Entity.OrderDetails", b =>
+                {
+                    b.HasOne("EcommerceApp.Models.Entity.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EcommerceApp.Models.Entity.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("EcommerceApp.Models.Entity.Product", b =>
@@ -219,19 +349,22 @@ namespace EcommerceApp.Migrations
             modelBuilder.Entity("EcommerceApp.Models.Entity.UserAddress.Thana", b =>
                 {
                     b.HasOne("EcommerceApp.Models.Entity.UserAddress.Zila", "Zila")
-                        .WithMany()
-                        .HasForeignKey("ZilaId");
+                        .WithMany("Thanas")
+                        .HasForeignKey("ZilaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Zila");
                 });
 
+            modelBuilder.Entity("EcommerceApp.Models.Entity.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
+                });
+
             modelBuilder.Entity("EcommerceApp.Models.Entity.UserAddress.Zila", b =>
                 {
-                    b.HasOne("EcommerceApp.Models.Entity.UserAddress.Division", "Division")
-                        .WithMany()
-                        .HasForeignKey("DivisionId");
-
-                    b.Navigation("Division");
+                    b.Navigation("Thanas");
                 });
 #pragma warning restore 612, 618
         }

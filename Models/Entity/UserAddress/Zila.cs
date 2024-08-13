@@ -9,7 +9,7 @@ namespace EcommerceApp.Models.Entity.UserAddress
         [Key]
         public int Id { get; set; }
         public string? Name { get; set; }
-        public Division Division { get; set; }
+        public required Division Division { get; set; }
         public ICollection<Thana> Thanas { get; set; } = [];
     }
 }
