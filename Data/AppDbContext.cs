@@ -10,6 +10,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Signup> Signups { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categorys { get; set; }
+    public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderDetails> OrderDetailes { get; set; }
 

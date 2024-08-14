@@ -1,4 +1,5 @@
 ﻿using EcommerceApp.Models.Entity;
+using EcommerceApp.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceApp.Controllers;
@@ -8,7 +9,7 @@ public class ProductController : Controller
     {
         return View();
     }
-    public ActionResult Create(ProductViewModel model)
+    public ActionResult Create(ProductVm model)
     {
         var product = new Product
         {
@@ -18,15 +19,3 @@ public class ProductController : Controller
     }
 }
 
-public class ProductViewModel
-{
-    public int Id { get; set; }
-    public required string Name { get; set; }
-    public string? Brand { get; set; }
-    public string? Modal { get; set; }
-    public string? Price { get; set; }
-    public string? Description { get; set; }
-    public string? Path { get; set; }
-    public IFormFile? Image { get; set; }
-    public int CategoryId { get; set; }
-}

@@ -18,7 +18,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover" id="table">
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
@@ -28,9 +28,10 @@
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Logo</th>
                                 <th class="text-center">Action</th>
-                     
+
                             </tr>
                         </thead>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -63,7 +64,7 @@
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="number" class="form-control" id="email" placeholder="Enter email address ">
-                    </div>               
+                    </div>
                     <div class="mb-3">
                         <label for="logoPath" class="form-label">Uplood logo : </label>
                         <input type="file" class="from-controle" id="logoPath" placeholder="Uplood supplier logo" accept="image/*" />
@@ -72,8 +73,88 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" id="savebtn">Save</button>
             </div>
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    <script>
+        function getAllSupplier() {
+            $.ajax({
+                url: '/Supplier/GetAllSupplier',
+                type: 'get',
+                success: function (data) {
+                    let tbody = '';
+                    $.each(data, function (key, val) {
+                        tbody += `<tr>
+                                                <td>${key + 1}</td>
+                                                <td>${val.name}</td>
+                                                <td>${val.Address}</td>
+                                                <td>${val.phone}</td>
+                                                <td>${val.email}</td>
+                                                <td>${val.logo}</td>
+                                                <td class="d-flex justify-content-center">
+                                                    <a class="btn btn-primary btn-sm edit" data-id="${val.id}">Edit</a>
+                                                    <a class="btn btn-danger btn-sm delete" data-id="${val.id}">Delete</a>
+                                                </td>
+                                            </tr>`;
+                    });
+                    $('#table tbody').empty();
+                    $('#table tbody').append(tbody);
+                },
+                error: function (e) {
+                    console.log('Error in the code');
+                },
+            });
+        }
+
+        $(document).on('click', '.edit', function (el) {
+            el.preventDefault();
+            let id = $(this).data('editId');
+            $.ajax({
+                url: '/Supplier/GetSupplierById?id=' + id,
+                type: 'get',
+                success: function (data) {
+                    $('#savebtn').text('Updata');
+                    $('#editId').val(data.id);
+                    $('#name').val(data.name);
+                    $('#address').val(data.Address);
+                    $('#email').val(data.email);
+                    $('#logo').val(data.logo);
+                    $('#productModal').modal('show');
+                   
+                }
+            })
+
+        });
+
+        $('#savebtn').click(function (el) {
+            el.preventDefault();
+
+            $.ajax({
+                url: '/Supplier/CreateAndUpdate',
+                type: 'post',
+                data: {
+                    name: $('#name').val(),
+                    Address: $('#address').val(),
+                    phone: $('#phone').val(),
+                    email: $('#email').val(),
+                    logo: $('#logoPath').val()
+                },
+                success: function () {
+                    getAllCategory();
+                    $('#productModal').modal('hide');
+                    $('#productModal').trigger('reset');
+                    $('#savebtn').text('Save');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            getAllSupplier();
+        });
+    </script>
+}

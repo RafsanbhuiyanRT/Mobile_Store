@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\ViewModel\**" />
     <Compile Remove="wwwroot\js\DataTables\AutoFill-2.3.7\**" />
     <Compile Remove="wwwroot\js\DataTables\Buttons-2.2.1\**" />
     <Compile Remove="wwwroot\js\DataTables\ColReorder-1.5.5\**" />
@@ -24,7 +23,6 @@
     <Compile Remove="wwwroot\js\DataTables\SearchPanes-1.4.0\**" />
     <Compile Remove="wwwroot\js\DataTables\Select-1.3.4\**" />
     <Compile Remove="wwwroot\js\DataTables\StateRestore-1.1.0\**" />
-    <Content Remove="Models\ViewModel\**" />
     <Content Remove="wwwroot\js\DataTables\AutoFill-2.3.7\**" />
     <Content Remove="wwwroot\js\DataTables\Buttons-2.2.1\**" />
     <Content Remove="wwwroot\js\DataTables\ColReorder-1.5.5\**" />
@@ -41,7 +39,6 @@
     <Content Remove="wwwroot\js\DataTables\SearchPanes-1.4.0\**" />
     <Content Remove="wwwroot\js\DataTables\Select-1.3.4\**" />
     <Content Remove="wwwroot\js\DataTables\StateRestore-1.1.0\**" />
-    <EmbeddedResource Remove="Models\ViewModel\**" />
     <EmbeddedResource Remove="wwwroot\js\DataTables\AutoFill-2.3.7\**" />
     <EmbeddedResource Remove="wwwroot\js\DataTables\Buttons-2.2.1\**" />
     <EmbeddedResource Remove="wwwroot\js\DataTables\ColReorder-1.5.5\**" />
@@ -58,7 +55,6 @@
     <EmbeddedResource Remove="wwwroot\js\DataTables\SearchPanes-1.4.0\**" />
     <EmbeddedResource Remove="wwwroot\js\DataTables\Select-1.3.4\**" />
     <EmbeddedResource Remove="wwwroot\js\DataTables\StateRestore-1.1.0\**" />
-    <None Remove="Models\ViewModel\**" />
     <None Remove="wwwroot\js\DataTables\AutoFill-2.3.7\**" />
     <None Remove="wwwroot\js\DataTables\Buttons-2.2.1\**" />
     <None Remove="wwwroot\js\DataTables\ColReorder-1.5.5\**" />

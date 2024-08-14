@@ -24,13 +24,11 @@
                             <tr>
                                 <th class="text-center"># </th>
                                 <th class="text-center">Name</th>
-                                <th class="text-center">Category</th>
+                                <th class="text-center">Description</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                        <tobdy>
-
-                        </tobdy>
+                        <tbody> </tbody>         
                     </table>
                 </div>
             </div>
@@ -47,6 +45,7 @@
             </div>
             <form id="categoryform">
                 <div class="modal-body">
+                    <input type="hidden" id="id" />
                     <div class="mb-3">
                         <input type="text" class="form-control" id="cName" placeholder="Enter Category Name" required />
                     </div>
@@ -94,9 +93,25 @@
                     $('#table tbody').empty();
                     $('#table tbody').append(tbody);
                 },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching categories:', error);
+                }
             });
         }
-
+        $(document).on('click', '.edit', function (el) {
+            let id = $(this).data('id');
+            $.ajax({
+                url: '/Category/GetCategoryById?id=' + id,
+                type:'get',
+                success: function(data){
+                    $('#savebtn').text('Update');
+                    $('#id').val(data.id);
+                    $('#cName').val(data.name);
+                    $('#cDescription').val(data.description);
+                    $('#categoryModal').modal('show');
+                }
+            })
+        })
 
         $('#savebtn').click(function (el) {
             el.preventDefault();
@@ -105,8 +120,14 @@
                 name: $('#cName').val(),
                 description: $('#cDescription').val()
             };
+            var url = '/Category/Create';
+            if ($(this).text().toLowerCase() == 'update'){
+                data.id = $('#id').val();
+
+                url = '/Category/Update';
+            }
             $.ajax({
-                url: '/Category/Create',
+                url: url,
                 type: 'post',
                 data: data,
                 success: function () {
@@ -119,6 +140,10 @@
                    
                 }
             });
+        });
+
+        $(document).on('click', '.delete', function (el) {
+            
         });
 
         $(document).ready(function () {
