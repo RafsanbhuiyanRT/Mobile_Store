@@ -1,6 +1,7 @@
 ﻿using EcommerceApp.Data;
 using EcommerceApp.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceApp.Controllers;
@@ -59,6 +60,18 @@ public class CategoryController(AppDbContext dbContext) : Controller
         _dbContext.Remove(catagory);
         _dbContext.SaveChanges();
         return Ok();
+    }
+
+    [HttpGet]
+    public ActionResult GetDropDownCategory()
+    {
+        var category = _dbContext.Categorys
+                    .Select(s => new SelectListItem
+                    {
+                        Text = s.Name,
+                        Value = $"{s.Id}"
+                    }).ToList();
+        return Ok(category);
     }
 
 }
