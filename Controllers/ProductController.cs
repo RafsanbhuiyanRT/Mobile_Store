@@ -38,6 +38,18 @@ public class ProductController(AppDbContext dbContext) : Controller
         return Ok();
     }
     [HttpGet]
+    public JsonResult GetDropdownProduct()
+    {
+        var product = _dbContext.Products
+            .Select(x => new
+            {
+                x.Id,
+                x.Name,
+                x.Price
+            }).ToList();
+        return Json(product);
+    }
+    [HttpGet]
     public ActionResult<List<ProductVm>> GetAll() {
         var product = _dbContext.Products
             .Include(X => X.Category)

@@ -2,6 +2,7 @@
 using EcommerceApp.Models.Entity;
 using EcommerceApp.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceApp.Controllers;
@@ -65,6 +66,16 @@ public class SupplierController(AppDbContext dbContext) : Controller
                 LogoPath = s.Logo
             })
             .ToList();
+        return Ok(supplier);
+    }
+    [HttpGet]
+    public  ActionResult<SupplierVm> GetAllSupplierName() {
+       var supplier = _dbContext.Suppliers
+            .Select(s => new SelectListItem
+            {
+                Text = s.Name,
+                Value = $"{s.Id}"
+            }).ToList();
         return Ok(supplier);
     }
 

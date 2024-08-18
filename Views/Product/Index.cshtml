@@ -158,6 +158,8 @@
                     let loc = location.origin;
                     let tbody = '';
                     $.each(data, function (key, val) {
+                        console.log(val);
+                        console.log(loc + val.imagePaths);
                         tbody += `<tr>
                                        <td>${key + 1}</td>
                                        <td>${val.name}</td>
@@ -166,7 +168,7 @@
                                        <td>${val.categoryName}</td>
                                        <td>${val.price}</td>
                                        <td>${val.description}</td>
-                                       <td><img src="${loc + val.logoPath}" alt="Not found" height="30" width="30" /></td>
+                                       <td><img src="${loc + val.imagePaths}" alt="Not found" height="30" width="30" /></td>
                                        <td class="d-flex justify-content-center">
                                            <a class="btn btn-primary btn-sm edit" data-id="${val.id}">Edit</a>
                                            <a class="btn btn-danger btn-sm delete" data-id="${val.id}">Delete</a>

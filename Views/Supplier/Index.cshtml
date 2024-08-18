@@ -12,7 +12,7 @@
                         <h4 class="text-dark">Suppliers</h4>
                     </div>
                     <div class="col-6 text-end">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">Create Supplier</button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#supplierModal">Create Supplier</button>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
     </div>
 </div>
 
-<div id="productModal" class="modal" tabindex="-1">
+<div id="supplierModal" class="modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -107,15 +107,13 @@
                     let loc = location.origin;
                     let tbody = '';
                     $.each(data, function (key, val) {
-                        tbody += `<tr>
+                        tbody += `<tr class=""text-center">
                                        <td>${key + 1}</td>
                                        <td>${val.name}</td>
                                        <td>${val.address}</td>
                                        <td>${val.phone}</td>
-                                       <td>${val.Price}</td>
-                                       <td>${val.Description}</td>
-                                       <td><img src="${loc + val.logoPath}" alt="Not found" height="30" width="30" /></td>
-                                       <td>${val.CategoryId}</td>
+                                       <td>${val.email}</td>                                      
+                                       <td><img src="${loc + val.logoPath}" alt="Not found" height="30" width="30" /></td>                                      
                                        <td class="d-flex justify-content-center">
                                            <a class="btn btn-primary btn-sm edit" data-id="${val.id}">Edit</a>
                                            <a class="btn btn-danger btn-sm delete" data-id="${val.id}">Delete</a>
@@ -152,7 +150,7 @@
                     $('#address').val(data.Address);
                     $('#email').val(data.email);
                     $('#logo').val(data.logo);
-                    $('#productModal').modal('show');
+                    $('#supplierModal').modal('show');
                 }
             })
         });
@@ -171,11 +169,10 @@
                 caches: false,
                 contentType: false,
                 processData: false,
-                dataType: 'json',
                 success: function () {
                     getAllSupplier()
-                    $('#productModal').modal('hide');
-                    $('#productModal').trigger('reset');
+                    $('#supplierModal').modal('hide');
+                    $('#supplierModal').trigger('reset');
                     $('#savebtn').text('Save');
                 }
             });
