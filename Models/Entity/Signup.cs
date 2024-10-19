@@ -1,7 +1,10 @@
-﻿namespace EcommerceApp.Models.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EcommerceApp.Models.Entity
 {
     public class Signup
     {
+        [Key]
         public int Id { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }

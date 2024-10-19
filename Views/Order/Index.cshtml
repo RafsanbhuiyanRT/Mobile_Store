@@ -307,6 +307,47 @@
             }
         };
 
+        function getSupplyer() {
+            $.ajax({
+                url: '/Supplier/GetAllSupplierName',
+                type: 'GET',
+                success: function (data) {
+                    console.log(data);
+                    let option = '<option value="">Select Supplier </option>';
+                    $.each(data, function (kye, val) {
+                        option += `<option value="${val.value}">${val.text}</option>`
+                    });
+
+                    $('#supplier').empty();
+                    $('#supplier').append(option);
+
+                }
+            });
+        } // -------------supplier dropdown------------- //
+
+        function getProduct (){  // ---------------product dropdown-------------- //
+
+        }
+
+        $(document).ready(function () {
+            // Fetch items and populate the dropdown
+            $.ajax({
+                url: '/Items/GetItems',
+                type: 'GET',
+                success: function (data) {
+                    var dropdown = $('#item');
+                    dropdown.empty(); // Clear existing options
+                    dropdown.append('<option value="" selected="selected">Select item name</option>');
+
+                    $.each(data, function (index, item) {
+                        dropdown.append($('<option></option>').text(item.Name).attr('value', item.Id).data('price', item.Price));
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error occurred: " + error);
+                }
+            });
+
         var dataTable = el.grid.table.dataTable();
 
         el.from.btn.saveBtn.click(function (e) {
@@ -322,6 +363,8 @@
         })
 
         $(document).ready(function () {
+            getSupplyer();
+
             var divisionSel = el.from.main.division
             var zilaSel = $('#zila');
             var thanaSel = $('#thana');
@@ -329,7 +372,7 @@
             $.each(bangladesh, function (e) {
                 divisionSel.append(new Option(e));
             });
-
+           
             divisionSel.on('change', function () {
                 debugger;
                 zilaSel.empty().append(new Option("Select Zila", ""));

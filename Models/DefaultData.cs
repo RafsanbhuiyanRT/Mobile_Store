@@ -6,48 +6,48 @@ using System.Runtime.Intrinsics.Arm;
 
 namespace EcommerceApp.Models;
 
-public class DefaultData
-{
-    public static async Task AddZila(IServiceProvider service)
-    {
+//public class DefaultData
+//{
+//    public static async Task AddZila(IServiceProvider service)
+//    {
         
-        var scope = service.CreateScope();
-        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        var allZila = db.Zilas.ToList();
+//        var scope = service.CreateScope();
+//        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+//        var allZila = db.Zilas.ToList();
 
-        var divisions = Enum.GetValues<Division>();
-        foreach (var dp in typeof(Divisions).GetProperties())
-        {
-            var division = divisions.FirstOrDefault(x => x.ToString().Equals(dp.Name, StringComparison.OrdinalIgnoreCase));
-            var type = Activator.CreateInstance(dp.PropertyType);
-            foreach (var zp in dp.PropertyType.GetProperties())
-            {
-                var zila = new Zila
-                {
-                    Name = zp.Name,
-                    Division = division
-                };
-                await db.AddAsync(zila);
-                await db.SaveChangesAsync();
-                if (zp.GetValue(type) is List<string> thana)
-                {
-                    var thanas = new List<Thana>();
-                    foreach (var v in thana)
-                    {
-                        thanas.Add(new Thana
-                        {
-                            Name = v,
-                            ZilaId = zila.Id
-                        });
-                    }
-                    await db.AddRangeAsync(thanas);
-                    await db.SaveChangesAsync();
-                }
-            }
-        }
-    }
+//        var divisions = Enum.GetValues<Division>();
+//        foreach (var dp in typeof(Divisions).GetProperties())
+//        {
+//            var division = divisions.FirstOrDefault(x => x.ToString().Equals(dp.Name, StringComparison.OrdinalIgnoreCase));
+//            var type = Activator.CreateInstance(dp.PropertyType);
+//            foreach (var zp in dp.PropertyType.GetProperties())
+//            {
+//                var zila = new Zila
+//                {
+//                    Name = zp.Name,
+//                    Division = division
+//                };
+//                await db.AddAsync(zila);
+//                await db.SaveChangesAsync();
+//                if (zp.GetValue(type) is List<string> thana)
+//                {
+//                    var thanas = new List<Thana>();
+//                    foreach (var v in thana)
+//                    {
+//                        thanas.Add(new Thana
+//                        {
+//                            Name = v,
+//                            ZilaId = zila.Id
+//                        });
+//                    }
+//                    await db.AddRangeAsync(thanas);
+//                    await db.SaveChangesAsync();
+//                }
+//            }
+//        }
+//    }
 
-}
+//}
 
 public class Divisions
 {

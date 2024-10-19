@@ -1,68 +1,71 @@
-﻿using EcommerceApp.Models.Entity;
-using EcommerceApp.Models.ViewModals;
+﻿using EcommerceApp.Data;
+using EcommerceApp.Models.Entity;
+using EcommerceApp.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Text;
-using System.Text.Json;
-using EcommerceApp.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceApp.Controllers;
-public class ProductController(AppDbContext db) : Controller
+public class ProductController(AppDbContext dbContext) : Controller
 {
-    private readonly AppDbContext _db = db;
-
+    private readonly AppDbContext _dbContext = dbContext;
     public IActionResult Index()  
     {
         return View();
     }
     [HttpPost]
-    public async Task<ActionResult> Create(VmProduct vm)
+    public async Task<ActionResult> Create([FromForm]ProductVm vm, [FromServices]IWebHostEnvironment webHost)
     {
+        
+        var imageFile = webHost.FileUpload(vm.Image);
         var product = new Product
         {
-            ProductName = vm.ProductName,
+            Id = vm.Id,
+            Name = vm.Name,
             Brand = vm.Brand,
             Modal = vm.Modal,
             Price = vm.Price,
             Description = vm.Description,
-            ImagePath =  "",
+            ImagePath = imageFile,
             CategoryId = vm.CategoryId,
-
         };
-        await _db.Products.AddAsync(product);
-        await _db.SaveChangesAsync();
+        //if(vm.Image is not null)
+        //{
+        //    product.ImagePath = imageFile;
+        //}
+        await _dbContext.AddAsync(product);
+        await _dbContext.SaveChangesAsync();
+        
         return Ok();
     }
     [HttpGet]
-    public async Task<ActionResult> GetAllProduct()
+    public JsonResult GetDropdownProduct()
     {
-        var response = (from p in _db.Products
-                       join c in _db.Categorys on p.CategoryId equals c.Id
-                       select new
-                       {
-                           ProductName = p.ProductName,
-                           Brand = p.Brand,
-                           Modal = p.Modal,
-                           price = p.Price,
-                           Description = p.Description,
-                           Category = c.Name
-                       }).ToList();
-                      
-        return Ok(response);               
+        var product = _dbContext.Products
+            .Select(x => new
+            {
+                x.Id,
+                x.Name,
+                x.Price
+            }).ToList();
+        return Json(product);
     }
-    [HttpPost]
-    public async Task<ActionResult> SaveProduct(InvoiceVm vm)
-    {
-        var url = new Uri("https://localhost:7041/api/Products/SaveProduct");
-        
-        using var client = new HttpClient();
-        var jsonData = JsonSerializer.Serialize(vm);
-        var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-        var response = client.PostAsync(url, content);
-
-        return Ok(vm);
+    [HttpGet]
+    public ActionResult<List<ProductVm>> GetAll() {
+        var product = _dbContext.Products
+            .Include(X => X.Category)
+            .Select(p => new ProductVm
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Brand = p.Brand,
+                Modal = p.Modal,
+                Price = p.Price,
+                Description = p.Description,
+                ImagePaths = p.ImagePath,
+                CategoryName = p.Category!.Name!
+            });
+        var str = product.ToQueryString();
+        return Ok(product);
     }
 }
-
 

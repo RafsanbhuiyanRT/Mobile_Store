@@ -1,4 +1,4 @@
-﻿@{
+﻿    @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
@@ -12,13 +12,13 @@
                         <h4 class="text-dark">Suppliers</h4>
                     </div>
                     <div class="col-6 text-end">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">Create Supplier</button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#supplierModal">Create Supplier</button>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover" id="table">
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
@@ -28,9 +28,10 @@
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Logo</th>
                                 <th class="text-center">Action</th>
-                     
+
                             </tr>
                         </thead>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -38,7 +39,7 @@
     </div>
 </div>
 
-<div id="productModal" class="modal" tabindex="-1">
+<div id="supplierModal" class="modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -46,34 +47,139 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="frm" style="width: 300px;">
-                    <input type="hidden" id="editId" />
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter supplier name">
+                <form id="frm">
+                    <input type="hidden" id="id" name="id" />
+                    <div class="row mb-3">
+                        <label for="name" class="col-sm-3 col-form-label col-form-label-sm">Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter supplier name" />
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="Enter supplier address" />
+                    <div class="row mb-3">
+                        <label for="address" class="col-sm-3 col-form-label col-form-label-sm">Address</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Enter supplier address" />
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="phone" placeholder="Enter phone number" />
+                    <div class="row mb-3">
+                        <label for="phone" class="col-sm-3 col-form-label col-form-label-sm">Phone</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone number" />
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="number" class="form-control" id="email" placeholder="Enter email address ">
-                    </div>               
-                    <div class="mb-3">
-                        <label for="logoPath" class="form-label">Uplood logo : </label>
-                        <input type="image" class="from-controle" id="logoPath" placeholder="Uplood supplier logo"  />
+                    <div class="row mb-3">
+                        <label for="email" class="col-sm-3 col-form-label col-form-label-sm">Email</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address " />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="row mb-4">
+                            <label for="logoPath" class="col-sm-3 col-form-label col-form-label-sm">Uplood</label>
+                            <div class="col-sm-8">
+                                <input type="file" class="from-control" id="logo" name="logo" accept="image/*" />
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-8">
+                                <img src="#" id="img" width="80" style="display:none" />
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" id="savebtn">Save</button>
             </div>
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    <script>
+        function getAllSupplier() {
+            $.ajax({
+                url: '/Supplier/GetAllSupplier',
+                type: 'get',
+                success: function (data) {
+                    let loc = location.origin;
+                    let tbody = '';
+                    $.each(data, function (key, val) {
+                        tbody += `<tr class=""text-center">
+                                       <td>${key + 1}</td>
+                                       <td>${val.name}</td>
+                                       <td>${val.address}</td>
+                                       <td>${val.phone}</td>
+                                       <td>${val.email}</td>                                      
+                                       <td><img src="${loc + val.logoPath}" alt="Not found" height="30" width="30" /></td>                                      
+                                       <td class="d-flex justify-content-center">
+                                           <a class="btn btn-primary btn-sm edit" data-id="${val.id}">Edit</a>
+                                           <a class="btn btn-danger btn-sm delete" data-id="${val.id}">Delete</a>
+                                       </td>
+                                   </tr>`;
+                    });
+                    $('#table tbody').empty();
+                    $('#table tbody').append(tbody);
+                },
+                error: function (e) {
+                    console.log('Error in the code');
+                },
+            });
+        }
+        $('#logo').change(function (el) {
+            let file = $(this).prop('files')[0];
+            // const [file] = $('#logo').files;
+            let v = URL.createObjectURL(file);
+            if (file) {
+                $('#img').attr('src', v);
+            }
+        });
+
+        $(document).on('click', '.edit', function (el) {
+            el.preventDefault();
+            let id = $(this).data('id');
+            $.ajax({
+                url: '/Supplier/GetSupplierById?id=' + id,
+                type: 'get',
+                success: function (data) {
+                    $('#savebtn').text('Updata');
+                    $('#id').val(data.id);
+                    $('#name').val(data.name);
+                    $('#address').val(data.Address);
+                    $('#email').val(data.email);
+                    $('#logo').val(data.logo);
+                    $('#supplierModal').modal('show');
+                }
+            })
+        });
+
+        $('#savebtn').click(function (el) {
+            el.preventDefault();
+            var formData = new FormData(document.getElementById("frm"));
+            // for (let [key, value] of formData) {
+            //     console.log(`${key}: ${value}`);
+            // }
+            // return;
+            $.ajax({
+                url: '/Supplier/CreateAndUpdate',
+                type: 'post',
+                data: formData,
+                caches: false,
+                contentType: false,
+                processData: false,
+                success: function () {
+                    getAllSupplier()
+                    $('#supplierModal').modal('hide');
+                    $('#supplierModal').trigger('reset');
+                    $('#savebtn').text('Save');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            getAllSupplier();
+        });
+    </script>
+}
