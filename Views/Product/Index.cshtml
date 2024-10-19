@@ -82,3 +82,23 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        function getCategory() { /// Drop Down
+            $.ajax({
+                url: "/Category/GetDrpCategories",
+                type: 'get',
+                success: function (data) {
+                    let option = '';
+                    $.each(data, function (key, val) {
+                        option += `<option value="${val.value}"> ${val.text}</option>`;
+                    });
+                    $('#category').empty();
+                    $('#category').append(option)
+                },
+            });
+        }
+
+    </script>
+}

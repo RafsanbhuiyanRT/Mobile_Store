@@ -1,4 +1,4 @@
-﻿@{
+﻿@* @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
@@ -34,4 +34,156 @@
             </div>
         </div>
     </div>
+</div> *@
+
+<style>
+    .btn-custom-size {
+        width: 90px;
+        height: 30px;
+        display: inline-block;
+        line-height: 1.5;
+        text-align: center;
+        padding: 4px 8px;
+        font-size: 14px;
+    }
+
+
+
+    .table-responsive {
+        max-height: calc(100vh - 160px);
+        overflow-y: auto;
+    }
+
+    .table thead th {
+        position: sticky;
+        top: 0;
+        background-color: #f8f8f8;
+        z-index: 1;
+    }
+
+    .card-footer {
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+    }
+</style>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="card">
+            <div class="card-body table-responsive p-0">
+                <table class="table table-bordered table-striped table-sm" id="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width:8%">Serial No</th>
+                            <th class="text-center" style="width:10%">
+                                <input class="form-check-input" type="checkbox" id="selectAll">
+                                Select All
+                            </th>
+                            <th>Invoice</th>
+                            <th>Product</th>
+                            <th class="text-end">Amount</th>
+                            <th class="text-center">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="card-footer bg-white">
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-sm btn-primary" id="makePayment" onclick="makePayment()" disabled>
+                        Make Payment
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        var items = [];
+        function getAllPayment() {
+            $.ajax({
+                url: "/CustomerBills/GetPayments",
+                type: 'get',
+                success: function (data) {
+                    items = data;
+                    let tbody = '';
+                    $.each(data, function (key, val) {
+                        let statusClass = '';
+                        let statusIcon = '';
+
+                        if (val.status.toLowerCase() === 'pending') {
+                            statusClass = 'btn-danger';
+                            statusIcon = '<i class="fas fa-hourglass-half"></i>';
+                        }
+                        else if (val.status.toLowerCase() === 'paid') {
+                            statusClass = 'btn-success';
+                            statusIcon = '<i class="fas fa-check-circle"></i>';
+                        }
+                        tbody += `<tr>
+                                        d<td class="text-center">${key + 1}</td>
+                                        <td class="text-center"> <input class="form-check-input item" type="checkbox" value="${val.id}"></td>
+                                        <td>${val.invoice}</td>
+                                        <td>${val.product}</td>
+                                        <td class="text-end">${val.amount}</td>
+                                        <td class="text-center">
+                                            <a class="btn btn-sm ${statusClass} btn-custom-size">  ${statusIcon} ${val.status}  </a>
+                                        </td>
+                                 </tr>`;
+                    });
+                    $('#table tbody').empty().append(tbody);
+
+                    $('#selectAll').change(function () {
+                        $('.item').prop('checked', this.checked);
+                        checkSelectedItems();
+                    });
+
+                    $('.item').change(function () {
+                        if ($('.item').length === $('.item:checked').length) {
+                            $('#selectAll').prop('checked', true);
+                        } else {
+                            $('#selectAll').prop('checked', false);
+                        }
+                        checkSelectedItems();
+                    });
+                },
+            });
+        }
+
+        function checkSelectedItems() {
+            const selectedItems = [];
+            $('.item:checked').each(function () {
+                selectedItems.push($(this).val());
+            });
+            if (selectedItems.length > 0) {
+                $("#makePayment").removeAttr('disabled');
+            } else {
+                $("#makePayment").attr('disabled', 'disabled');
+            }
+        }
+
+        function makePayment() {
+            const selectedItems = [];
+            $('.item:checked').each(function () {
+                selectedItems.push(items.find(x => x.id == $(this).val()));
+            });
+            console.log(selectedItems);
+            let data = selectedItems;
+            $.ajax({
+                url: '/Product/SaveProduct',
+                type: 'POST',
+                data: data,
+                success: function(response) {
+                    
+                },
+            });
+        }
+
+        $(document).ready(function () {
+            getAllPayment();
+            makePayment()
+        });
+    </script>
+}

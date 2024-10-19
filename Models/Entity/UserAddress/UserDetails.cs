@@ -3,8 +3,6 @@
 namespace EcommerceApp.Models.Entity.UserAddress
 {
     public class UserDetails
-
-
     {
         [Key]
         public int Id { get; set; }
